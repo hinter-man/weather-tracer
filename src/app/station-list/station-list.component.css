@@ -1,0 +1,11 @@
+.mat-table, .mat-paginator {
+    width: 80%;
+}
+
+.mat-form-field {
+    width: 80%;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+

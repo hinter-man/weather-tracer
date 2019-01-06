@@ -1,0 +1,6 @@
+<mat-form-field appearance="outline">
+    <mat-label>Search Locations</mat-label>
+    <input #searchInput matInput placeholder="4311 Schwertberg" 
+      (input)="search(searchInput.value)">
+    <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
