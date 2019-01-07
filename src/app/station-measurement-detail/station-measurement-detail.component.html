@@ -1,0 +1,7 @@
+<div>
+  <p *ngIf="dateLoaded">
+    station-measurement-detail works!
+    {{ dateLoaded }}
+  </p>
+  <mat-spinner *ngIf="!dateLoaded" color="accent"></mat-spinner>
+</div>

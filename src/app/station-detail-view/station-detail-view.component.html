@@ -1,0 +1,95 @@
+<div *ngIf="station">
+  <mat-toolbar color="primary" class="mat-elevation-z8">
+      <span>{{ station.Id }} - {{ station.Name || uppercase }}</span>
+  </mat-toolbar>
+  <div class="accordion">
+    <mat-accordion multi="true">
+      <!-- station panel  -->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Station Data
+          </mat-panel-title>
+          <mat-panel-description *ngIf="!panelOpenState">
+            Show details
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- expanded -->
+        <div class="expansion-panel-body">
+          <table cellspacing="0">
+            <tr>
+                <td>
+                  <mat-form-field>
+                    <input matInput placeholder="Name" value="{{station.Name}}">
+                  </mat-form-field>
+                </td>
+                <td>
+                  <mat-form-field>
+                    <input matInput placeholder="Type" value="{{station.Type}}">
+                  </mat-form-field>
+                </td>
+            <tr>
+              <td colspan="2">
+                <mat-form-field>
+                  <input 
+                    matInput placeholder="Address" value="{{station.Address}}">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input 
+                    matInput placeholder="Post Code" value="{{station.PostCode.Code}}">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input 
+                    matInput placeholder="Community" 
+                    value="{{station.PostCode.Community}}">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input 
+                    matInput placeholder="District" 
+                    value="{{station.PostCode.Disctrict.Name}}">
+                </mat-form-field>
+              </td>
+              <td>
+                <mat-form-field>
+                  <input 
+                    matInput placeholder="Province" 
+                    value="{{station.PostCode.Disctrict.Province.Name}}">
+                </mat-form-field>
+              </td>
+            </tr>
+          </table>
+          <div class="google-maps">
+            <p>google maps here</p>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <!-- measurement panel  -->
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                          (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Measurements
+          </mat-panel-title>
+          <mat-panel-description *ngIf="!panelOpenState">
+            Show details
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <!-- expanded -->
+        <wetr-station-measurement 
+          [stationId]="station.Id">
+        </wetr-station-measurement> 
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

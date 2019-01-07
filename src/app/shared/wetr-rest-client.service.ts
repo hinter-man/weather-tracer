@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Station } from './station';
 import { environment } from 'src/environments/environment.prod';
 import { map, catchError, retry, tap } from 'rxjs/operators';
+import { PostCode } from './postcode';
 
 const API_BASE_URL: string = `${environment.server}`;
 
@@ -11,19 +12,40 @@ const API_BASE_URL: string = `${environment.server}`;
   providedIn: 'root'
 })
 export class WetrRestClientService {
-  searchLocations(term: string): any {
-    throw new Error("Method not implemented.");
-  }
-
   constructor(private http: HttpClient) { }
 
   getStations() : Observable<Station[]> {
     return this.http.get<Station[]>(this.createApiUrl('stations'))
-      .pipe(catchError(this.handleError('getStations', [])), tap(res => console.log(res)));
+      .pipe(
+        catchError(this.handleError('getStations', []))
+        );
+  }
+
+  getStationById(id: number): Observable<Station> {
+    return this.http.get<Station>(this.createApiUrl(`stations/${id}`))
+      .pipe(
+        catchError(this.handleError('getStationById', null))
+        );
+  }
+
+  getStationByPostCode(postCode: string): Observable<Station[]> {
+    return this.http.get<Station[]>(
+      this.createApiUrl(`stations?postCode=${postCode}`))
+        .pipe(
+          catchError(this.handleError('getStationByPostCode', []))
+        );
+  }
+
+  searchLocation(searchTerm : string) : Observable<PostCode[]> { 
+    return this.http.get<PostCode[]>(
+      this.createApiUrl(`location?searchterm=${searchTerm}`))
+        .pipe(
+          catchError(this.handleError('searchLocation', []))
+          );
   }
 
 
-  
+
   private createApiUrl(apiPath: string) : string {
     return `${API_BASE_URL}${apiPath}`;
   }

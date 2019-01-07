@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WetrRestClientService } from '../shared/wetr-rest-client.service';
 import { Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
+import { PostCode } from '../shared/postcode';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'wetr-search-location',
@@ -10,27 +12,33 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 })
 export class SearchLocationComponent implements OnInit {
 
-  locations$: Observable<any[]>;
+  locations$: Observable<PostCode[]>;
   private searchTerms = new Subject<string>();
+  inputValue: string = '';
 
-  constructor(private wetrService: WetrRestClientService) { }
+  constructor(private wetrService: WetrRestClientService,
+              private router: Router) { }
 
-  ngOnInit() {
-    this.locations$ = this.searchTerms.pipe(
-      // wait 300ms after each keystroke before considering the term
+  ngOnInit() : void {
+    this.locations$ = this.searchTerms
+    .pipe(
       debounceTime(300),
- 
-      // ignore new term if same as previous term
       distinctUntilChanged(),
- 
-      // switch to new search observable each time the term changes
-      switchMap((term: string) => this.wetrService.searchLocations(term)),
-    );
+      switchMap((term: string) => this.wetrService.searchLocation(term))
+    )
   }
 
   // Push a search term into the observable stream.
   search(term: string) : void {
-    this.searchTerms.next(term);
+    if (term !== '') {
+      this.searchTerms.next(term)
+    }
+  }
+
+  // gets called after a click on a location in the search result
+  navigateTo(location : PostCode) : void {
+    this.router.navigateByUrl(`/stations?postCode=${location.Code}`);
+    this.inputValue = '';
   }
 
 }

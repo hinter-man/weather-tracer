@@ -1,6 +1,12 @@
 <mat-form-field appearance="outline">
-    <mat-label>Search Locations</mat-label>
-    <input #searchInput matInput placeholder="4311 Schwertberg" 
-      (input)="search(searchInput.value)">
-    <mat-icon matSuffix>search</mat-icon>
+  <mat-label>Search Locations</mat-label>
+  <input #searchInput id="search-input" matInput placeholder="4311 Schwertberg" [matAutocomplete]="auto"
+      (keyup)="search(searchInput.value)" [(ngModel)]="inputValue" #ctrl="ngModel">
+  <mat-icon matSuffix>search</mat-icon>
+  <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let location of locations$ | async" 
+                  [value]="location.Community" (click)="navigateTo(location)">
+        {{location.Code}} - {{ location.Community }}
+      </mat-option>
+  </mat-autocomplete>
 </mat-form-field>

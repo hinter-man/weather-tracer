@@ -2,8 +2,8 @@ import { District } from "./district";
 
 export class PostCode {
     constructor(
-       public code: string,
-       public community: string,
-       public district: District | any 
+       public Code: string,
+       public Community: string,
+       public Disctrict: District 
     ) {}
 }

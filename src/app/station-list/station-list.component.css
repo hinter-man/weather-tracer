@@ -1,11 +1,19 @@
 .mat-table, .mat-paginator {
-    width: 80%;
+    width: 100%;
 }
 
 .mat-form-field {
-    width: 80%;
+    width: 100%;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 5px;
+}
+
+tr.mat-row {
+    cursor: pointer;
+}
+
+tr.mat-row:hover {
+    background-color: rgba(0,0,0,.04);
 }
 
