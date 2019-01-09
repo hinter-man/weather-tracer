@@ -5,6 +5,7 @@ import { Station } from './station';
 import { environment } from 'src/environments/environment.prod';
 import { map, catchError, retry, tap } from 'rxjs/operators';
 import { PostCode } from './postcode';
+import { Measurement } from './measurement';
 
 const API_BASE_URL: string = `${environment.server}`;
 
@@ -44,8 +45,19 @@ export class WetrRestClientService {
           );
   }
 
+  getMeasurementsByStation(stationId: number): Observable<Measurement[]> {
+    return this.http.get<Measurement[]>(
+        this.createApiUrl(`stations/${stationId}/measurements`))
+          .pipe(
+            catchError(this.handleError('getMeasurementsByStation', []))
+          );
+  }
 
 
+
+
+
+  
   private createApiUrl(apiPath: string) : string {
     return `${API_BASE_URL}${apiPath}`;
   }

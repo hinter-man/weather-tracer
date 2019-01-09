@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Measurement } from '../shared/measurement';
+import { WetrRestClientService } from '../shared/wetr-rest-client.service';
+import { ActivatedRoute } from '@angular/router';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'wetr-station-measurement-detail',
@@ -7,16 +11,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StationMeasurementDetailComponent implements OnInit {
 
-  dateLoaded: Date;
+  public measurements: Measurement[];
+  public filteredMeasurements: Measurement[];
+  public typeOfMeasureId: number;
 
-  constructor() { }
+  constructor(private wetrService: WetrRestClientService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    setTimeout(() => this.setDate(), 3000); 
+    // get station id and convert to int
+    let stationId = +this.route.snapshot.paramMap.get('id');
+
+    this.getMeasurements(stationId, this.typeOfMeasureId);
   }
-  setDate(): any {
-    this.dateLoaded = new Date();
-    console.log(this.dateLoaded);
+
+  private getMeasurements(stationId: number, typeOfMeasureId: number): void {
+    this.wetrService.getMeasurementsByStation(stationId)
+      .subscribe(res => this.measurements = res);
+  }
+
+  public showMeasurementByTypeOfMeasure(typeOfMeasureId: string) : void {
+    this.filteredMeasurements = 
+      this.measurements.filter(m => m.TypeOfMeasure.Id === +typeOfMeasureId);
   }
 
 }

@@ -1,0 +1,29 @@
+.measurement-content {
+    min-height: 400px;
+    width: 100%;
+}
+
+.mat-spinner {
+    margin: auto;
+    margin-top: 40px;
+}
+
+mat-icon {
+    width: 50px;
+    height: 50px;
+}
+
+.measurement-button-toolbar {
+    margin: 10px auto;
+    width: fit-content;
+}
+
+div.measurement-button-toolbar img {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
+.mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
+    border: 0;
+}

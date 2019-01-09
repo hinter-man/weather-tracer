@@ -1,7 +1,54 @@
-<div>
-  <p *ngIf="dateLoaded">
-    station-measurement-detail works!
-    {{ dateLoaded }}
-  </p>
-  <mat-spinner *ngIf="!dateLoaded" color="accent"></mat-spinner>
+
+<div class="measurement-content">
+  <mat-spinner *ngIf="!measurements" color="accent"></mat-spinner>
+  
+  <div *ngIf="measurements">
+    <div class="measurement-button-toolbar">
+      <mat-button-toggle-group>
+        <mat-button-toggle #btnTemperature value="1" 
+            (click)="showMeasurementByTypeOfMeasure(btnTemperature.value)"
+            matTooltip="Temperature">
+            <img src="src\assets\thermometer.svg">
+        </mat-button-toggle>
+        <mat-button-toggle #btnAirPressure value="2" 
+            (click)="showMeasurementByTypeOfMeasure(btnAirPressure.value)"
+            matTooltip="Air Pressure">
+            <img src="src\assets\Pressure-512.png">
+        </mat-button-toggle>
+        <mat-button-toggle #btnHumidity value="3"
+            (click)="showMeasurementByTypeOfMeasure(btnHumidity.value)"
+            matTooltip="Humidity">
+            <img src="src\assets\humidity.svg">
+        </mat-button-toggle>
+        <mat-button-toggle #btnWindDirection value="4"
+            (click)="showMeasurementByTypeOfMeasure(btnWindDirection.value)"
+            matTooltip="Wind Direction">
+            <img src="src\assets\compass.svg">
+        </mat-button-toggle> 
+        <mat-button-toggle #btnWindSpeed value="5"
+            (click)="showMeasurementByTypeOfMeasure(btnWindSpeed.value)"    
+            matTooltip="Wind Speed">
+            <img src="src\assets\wind.svg">
+        </mat-button-toggle>      
+        <mat-button-toggle #btnRain value="6" 
+            (click)="showMeasurementByTypeOfMeasure(btnRain.value)"
+            matTooltip="Rain">
+            <img src="src\assets\rain.svg">
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    <div class="measurement-content-table">
+      <table>
+        <tr>
+          <th>Timestamp</th>
+          <th>Value</th>
+        </tr>
+        <tr *ngFor="let measurement of filteredMeasurements">
+          <td> {{ measurement.Timestamp | date:'medium' }} </td>
+          <td> {{ measurement.Value }} </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </div>
