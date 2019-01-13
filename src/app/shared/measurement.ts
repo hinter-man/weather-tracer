@@ -3,8 +3,12 @@ import { TypeOfMeasurement } from "./typeofmeasurement";
 export class Measurement {
     constructor(
         public StationId: number,
-        public Timestamp: Date, 
         public TypeOfMeasure: TypeOfMeasurement,
-        public Value: number
+        public Timestamp: Date | any, 
+        public Value: number,
+        public Min: number,
+        public Max: number,
+        public Avg: number,
+        public Sum: number
     ) {}
 }

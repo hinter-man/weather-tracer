@@ -14,6 +14,10 @@ import { StationDetailViewComponent } from './station-detail-view/station-detail
 import { FormsModule } from '@angular/forms';
 import { StationMeasurementComponent } from './station-measurement/station-measurement.component';
 import { StationMeasurementDetailComponent } from './station-measurement-detail/station-measurement-detail.component';
+import { LoginComponent } from './login/login.component';
+import { AdminComponent } from './admin/admin.component';
+import { OAuthCallbackComponent } from './oauth-callback/oauth-callback.component';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   declarations: [
@@ -23,7 +27,10 @@ import { StationMeasurementDetailComponent } from './station-measurement-detail/
     SearchLocationComponent,
     StationDetailViewComponent,
     StationMeasurementComponent,
-    StationMeasurementDetailComponent
+    StationMeasurementDetailComponent,
+    LoginComponent,
+    AdminComponent,
+    OAuthCallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +38,8 @@ import { StationMeasurementDetailComponent } from './station-measurement-detail/
     AppRoutingModule,
     FormsModule,
     AngularMaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

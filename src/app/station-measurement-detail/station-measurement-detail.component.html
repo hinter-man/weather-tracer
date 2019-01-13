@@ -1,36 +1,52 @@
 
 <div class="measurement-content">
-  <mat-spinner *ngIf="!measurements" color="accent"></mat-spinner>
+  <mat-spinner *ngIf="!measurementMap" color="accent"></mat-spinner>
   
-  <div *ngIf="measurements">
+  <div *ngIf="measurementMap">
+    <div *ngIf="tabType == 3" class="custom-date-input">
+      <mat-form-field>
+        <input matInput [matDatepickerFilter]="datePickerFromFilter" [matDatepicker]="from" 
+          placeholder="From" [(ngModel)]="customFromDate">
+        <mat-datepicker-toggle matSuffix [for]="from"></mat-datepicker-toggle>
+        <mat-datepicker #from></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+          <input matInput [matDatepickerFilter]="datePickerToFilter"
+            [matDatepicker]="to" placeholder="To" [(ngModel)]="customToDate">
+          <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+          <mat-datepicker #to></mat-datepicker>
+      </mat-form-field>
+      <button mat-stroked-button (click)="getMeasurementsWithUserFilter()" 
+        [disabled]="!customFromDate || !customToDate">Search</button>
+    </div>
     <div class="measurement-button-toolbar">
-      <mat-button-toggle-group>
-        <mat-button-toggle #btnTemperature value="1" 
+      <mat-button-toggle-group multiple>
+        <mat-button-toggle #btnTemperature value="0" 
             (click)="showMeasurementByTypeOfMeasure(btnTemperature.value)"
             matTooltip="Temperature">
             <img src="src\assets\thermometer.svg">
         </mat-button-toggle>
-        <mat-button-toggle #btnAirPressure value="2" 
+        <mat-button-toggle #btnAirPressure value="1" 
             (click)="showMeasurementByTypeOfMeasure(btnAirPressure.value)"
             matTooltip="Air Pressure">
             <img src="src\assets\Pressure-512.png">
         </mat-button-toggle>
-        <mat-button-toggle #btnHumidity value="3"
+        <mat-button-toggle #btnHumidity value="2"
             (click)="showMeasurementByTypeOfMeasure(btnHumidity.value)"
             matTooltip="Humidity">
             <img src="src\assets\humidity.svg">
         </mat-button-toggle>
-        <mat-button-toggle #btnWindDirection value="4"
+        <mat-button-toggle #btnWindDirection value="3"
             (click)="showMeasurementByTypeOfMeasure(btnWindDirection.value)"
             matTooltip="Wind Direction">
             <img src="src\assets\compass.svg">
         </mat-button-toggle> 
-        <mat-button-toggle #btnWindSpeed value="5"
+        <mat-button-toggle #btnWindSpeed value="4"
             (click)="showMeasurementByTypeOfMeasure(btnWindSpeed.value)"    
             matTooltip="Wind Speed">
             <img src="src\assets\wind.svg">
         </mat-button-toggle>      
-        <mat-button-toggle #btnRain value="6" 
+        <mat-button-toggle #btnRain value="5" 
             (click)="showMeasurementByTypeOfMeasure(btnRain.value)"
             matTooltip="Rain">
             <img src="src\assets\rain.svg">
@@ -39,16 +55,63 @@
     </div>
 
     <div class="measurement-content-table">
-      <table>
-        <tr>
-          <th>Timestamp</th>
-          <th>Value</th>
-        </tr>
-        <tr *ngFor="let measurement of filteredMeasurements">
-          <td> {{ measurement.Timestamp | date:'medium' }} </td>
-          <td> {{ measurement.Value }} </td>
-        </tr>
-      </table>
+      <mat-accordion multi="true" class="mat-elevation-z0">
+        <mat-expansion-panel *ngFor="let typeOfMeasure of currentShownTypeOfMeasures" class="mat-elevation-z0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ typeOfMeasures[typeOfMeasure] }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <table mat-table [dataSource]="measurementMap[typeOfMeasure]" sticky>
+            <ng-container matColumnDef="Timestamp">
+              <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+              <td mat-cell *matCellDef="let element"> {{ element.Timestamp }}</td>
+            </ng-container>
+          
+            <ng-container matColumnDef="Value">
+              <th mat-header-cell *matHeaderCellDef> Value </th>
+              <td mat-cell *matCellDef="let element"> 
+                {{element.Value | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
+              </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="Min">
+              <th mat-header-cell *matHeaderCellDef> Min </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.Min | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
+              </td>
+            </ng-container>
+          
+            <ng-container matColumnDef="Max">
+              <th mat-header-cell *matHeaderCellDef> Max </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.Max | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
+              </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="Avg">
+              <th mat-header-cell *matHeaderCellDef> Avg </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.Avg | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <div class="measurement-chart-container">
+            <div>
+              <canvas baseChart
+                          [datasets]="lineChartData"
+                          [labels]="lineChartLabels"
+                          [options]="lineChartOptions"
+                          [legend]="lineChartLegend"
+                          [chartType]="lineChartType"
+                          (chartHover)="chartHovered($event)"
+                          (chartClick)="chartClicked($event)"></canvas>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
     </div>
   </div>
 </div>

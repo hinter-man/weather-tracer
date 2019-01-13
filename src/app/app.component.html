@@ -2,8 +2,7 @@
   <span routerLink="/welcome">{{ title | uppercase }}</span>
   <span class="toolbar-fill-remaining-space"></span>
   <wetr-search-location class="toolbar-right"></wetr-search-location>
-  <mat-icon class="toolbar-right">person</mat-icon>
-  
+  <wetr-login></wetr-login>
 </mat-toolbar>
 
 <mat-sidenav-container>
@@ -11,6 +10,7 @@
     <mat-nav-list>
       <a mat-list-item routerLink="/welcome">Home</a>
       <a mat-list-item routerLink="/stations">Stations</a>
+      <a mat-list-item routerLink="/admin">Admin</a>
     </mat-nav-list>
   </mat-sidenav>
 

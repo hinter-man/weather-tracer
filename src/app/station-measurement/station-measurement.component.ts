@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class StationMeasurementComponent implements OnInit {
 
   @Input() stationId: number;
+  public tabType = TabType;
 
   constructor() { }
 
@@ -15,3 +16,11 @@ export class StationMeasurementComponent implements OnInit {
   }
 
 }
+
+export enum TabType {
+  Today,
+  Hourly,
+  TenDays,
+  Custom,
+}
+

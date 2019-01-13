@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <span>My Stations</span>
+  <button mat-icon-button color="accent" (click)="addStation()">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
+<div class="accordion">
+  <mat-accordion>
+    <span *ngIf="!myStations">You have no stations.</span>
+    <!-- station panel  -->
+    <mat-expansion-panel *ngFor="let station of myStations" [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header color="accent">
+        <mat-panel-title>
+          Station Data
+        </mat-panel-title>
+        <mat-panel-description *ngIf="!panelOpenState">
+          <span>
+          <button mat-icon-button color="accent" 
+            (click)="deleteStation(station)">
+            <mat-icon>delete</mat-icon>
+          </button>
+          </span>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <!-- expanded -->
+      <div class="expansion-panel-body">
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>

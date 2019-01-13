@@ -17,7 +17,12 @@ mat-toolbar {
 }
 
 .toolbar-right {
-    padding-left: 14px;
+    margin-left: 14px;
+}
+
+.toolbar-right.login-btn:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,.04);
 }
 
 main {

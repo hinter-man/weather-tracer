@@ -1,0 +1,8 @@
+.login-btn {
+    margin-left: 14px;
+}
+
+.login-btn:hover {
+    cursor: pointer;
+    background-color: rgba(0,0,0,.04);
+}

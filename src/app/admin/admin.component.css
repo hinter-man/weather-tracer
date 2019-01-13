@@ -20,19 +20,3 @@ mat-toolbar {
 .expansion-panel-body {
     display: flex;
 }
-
-table {
-    width: 50%;
-}
-
-.google-maps {
-    width: 50%;
-}
-
-mat-form-field {
-    width: 100%;
-}
-
-mat-form-field input {
-    color: black;
-}

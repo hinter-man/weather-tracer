@@ -45,12 +45,25 @@ export class WetrRestClientService {
           );
   }
 
-  getMeasurementsByStation(stationId: number): Observable<Measurement[]> {
-    return this.http.get<Measurement[]>(
-        this.createApiUrl(`stations/${stationId}/measurements`))
-          .pipe(
-            catchError(this.handleError('getMeasurementsByStation', []))
-          );
+  getMeasurementsByStation(stationId: number,fromDate: Date, toDate: Date,
+    grouping?: number, typeOfMeasure?: number)
+    :Observable<Measurement[]> {
+
+      let url = 
+        this.createApiUrl(`stations/${stationId}/measurements?from=${fromDate.toISOString()}&to=${toDate.toISOString()}`);
+
+      if (grouping) {
+        url += `&grouping=${grouping}`;
+      }
+
+      if (typeOfMeasure) {
+        url += `&typeOfMeasureId=${typeOfMeasure}`;
+      }
+
+    return this.http.get<Measurement[]>(url)
+      .pipe(
+        catchError(this.handleError('getMeasurementsByStation', []))
+      );
   }
 
 

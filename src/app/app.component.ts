@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from './shared/auth.service';
 
 @Component({
   selector: 'wetr-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'wetr-web';
+
+  constructor(public auth: AuthService) {
+    auth.handleAuthentication();
+  }
+
+  ngOnInit() {
+  }
+
+
 }

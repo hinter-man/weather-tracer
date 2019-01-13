@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Station } from '../shared/station';
 import { WetrRestClientService } from '../shared/wetr-rest-client.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'wetr-station-detail-view',
@@ -9,7 +10,6 @@ import { WetrRestClientService } from '../shared/wetr-rest-client.service';
   styleUrls: ['./station-detail-view.component.css']
 })
 export class StationDetailViewComponent implements OnInit {
-
   station : Station;
 
   constructor(private route: ActivatedRoute,
@@ -20,7 +20,6 @@ export class StationDetailViewComponent implements OnInit {
     this.wetrService.getStationById(id)
       .subscribe(res => {
         this.station = res;
-        console.log(res);
       });
   }
 

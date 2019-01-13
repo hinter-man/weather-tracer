@@ -27,3 +27,34 @@ div.measurement-button-toolbar img {
 .mat-button-toggle-group-appearance-standard .mat-button-toggle+.mat-button-toggle {
     border: 0;
 }
+
+tr.mat-row {
+    height: 20px;
+}
+
+th.mat-header.row {
+    height: 30px;
+}
+
+mat-expansion-panel {
+    background-color: rgba(0,0,0,.04);
+}
+
+table {
+    width: 50%;
+    background-color: rgba(0,0,0,0);
+}
+
+div.custom-date-input {
+    width: fit-content;
+    margin: 10px auto;
+    padding-top: 10px; 
+}
+
+button.mat-stroked-button {
+    margin-left: 10px;
+}
+
+div.measurement-chart-container {
+    width: 100%;
+}
