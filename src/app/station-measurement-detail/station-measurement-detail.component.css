@@ -55,6 +55,11 @@ button.mat-stroked-button {
     margin-left: 10px;
 }
 
-div.measurement-chart-container {
-    width: 100%;
+.measurement-chart-container {
+    width: 50%;
+}
+
+.measurement-panel-body{
+    width: 100%;    
+    display: flex;
 }

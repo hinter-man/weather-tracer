@@ -18,6 +18,7 @@ import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin/admin.component';
 import { OAuthCallbackComponent } from './oauth-callback/oauth-callback.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { MeasurementChartComponent } from './measurement-chart/measurement-chart.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
     StationMeasurementDetailComponent,
     LoginComponent,
     AdminComponent,
-    OAuthCallbackComponent
+    OAuthCallbackComponent,
+    MeasurementChartComponent
   ],
   imports: [
     BrowserModule,

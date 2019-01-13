@@ -32,11 +32,9 @@ export class StationMeasurementDetailComponent implements OnInit {
     {data: [18, 48, 77, 9, 100, 27, 40], label: 'Max'},
     {data: [18, 48, 77, 9, 100, 27, 40], label: 'Avg'},
   ];
-  public lineChartLabels:Array<string> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
   public lineChartOptions:any = {
     responsive: true
   };
-
   public lineChartLegend:boolean = true;
   public lineChartType:string = 'line';
 
@@ -131,14 +129,5 @@ export class StationMeasurementDetailComponent implements OnInit {
     } else {
       this.currentShownTypeOfMeasures.push(id);
     }
-  }
-
-  // chart events
-  public chartClicked(e:any):void {
-    console.log(e);
-  }
-  
-  public chartHovered(e:any):void {
-    console.log(e);
   }
 }

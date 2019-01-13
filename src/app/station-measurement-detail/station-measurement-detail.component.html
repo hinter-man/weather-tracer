@@ -54,60 +54,55 @@
       </mat-button-toggle-group>
     </div>
 
-    <div class="measurement-content-table">
-      <mat-accordion multi="true" class="mat-elevation-z0">
+    <div>
+      <mat-accordion class="mat-elevation-z0">
         <mat-expansion-panel *ngFor="let typeOfMeasure of currentShownTypeOfMeasures" class="mat-elevation-z0">
           <mat-expansion-panel-header>
             <mat-panel-title>
               {{ typeOfMeasures[typeOfMeasure] }}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <table mat-table [dataSource]="measurementMap[typeOfMeasure]" sticky>
-            <ng-container matColumnDef="Timestamp">
-              <th mat-header-cell *matHeaderCellDef> Timestamp </th>
-              <td mat-cell *matCellDef="let element"> {{ element.Timestamp }}</td>
-            </ng-container>
-          
-            <ng-container matColumnDef="Value">
-              <th mat-header-cell *matHeaderCellDef> Value </th>
-              <td mat-cell *matCellDef="let element"> 
-                {{element.Value | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
-              </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="Min">
-              <th mat-header-cell *matHeaderCellDef> Min </th>
-              <td mat-cell *matCellDef="let element">
-                {{element.Min | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
-              </td>
-            </ng-container>
-          
-            <ng-container matColumnDef="Max">
-              <th mat-header-cell *matHeaderCellDef> Max </th>
-              <td mat-cell *matCellDef="let element">
-                {{element.Max | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
-              </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="Avg">
-              <th mat-header-cell *matHeaderCellDef> Avg </th>
-              <td mat-cell *matCellDef="let element">
-                {{element.Avg | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
-              </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-          <div class="measurement-chart-container">
-            <div>
-              <canvas baseChart
-                          [datasets]="lineChartData"
-                          [labels]="lineChartLabels"
-                          [options]="lineChartOptions"
-                          [legend]="lineChartLegend"
-                          [chartType]="lineChartType"
-                          (chartHover)="chartHovered($event)"
-                          (chartClick)="chartClicked($event)"></canvas>
+          <div class="measurement-panel-body">
+            <table mat-table [dataSource]="measurementMap[typeOfMeasure]" sticky>
+              <ng-container matColumnDef="Timestamp">
+                <th mat-header-cell *matHeaderCellDef> Timestamp </th>
+                <td mat-cell *matCellDef="let element"> {{ element.Timestamp }}</td>
+              </ng-container>
+            
+              <ng-container matColumnDef="Value">
+                <th mat-header-cell *matHeaderCellDef> Value </th>
+                <td mat-cell *matCellDef="let element"> 
+                  {{element.Value | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
+                </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="Min">
+                <th mat-header-cell *matHeaderCellDef> Min </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.Min | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
+                </td>
+              </ng-container>
+            
+              <ng-container matColumnDef="Max">
+                <th mat-header-cell *matHeaderCellDef> Max </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.Max | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
+                </td>
+              </ng-container>
+      
+              <ng-container matColumnDef="Avg">
+                <th mat-header-cell *matHeaderCellDef> Avg </th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.Avg | number : '1.2-2'}} {{ element.TypeOfMeasure.UnitAbbreviation }}
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+            <div class="measurement-chart-container">
+              <wetr-measurement-chart 
+                [measurements]="measurementMap[typeOfMeasure]">
+              </wetr-measurement-chart>
             </div>
           </div>
         </mat-expansion-panel>
