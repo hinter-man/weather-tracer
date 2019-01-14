@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Station } from '../shared/station';
 import { WetrRestClientService } from '../shared/wetr-rest-client.service';
-import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'wetr-station-detail-view',

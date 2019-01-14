@@ -66,10 +66,6 @@ export class WetrRestClientService {
       );
   }
 
-
-
-
-
   
   private createApiUrl(apiPath: string) : string {
     return `${API_BASE_URL}${apiPath}`;

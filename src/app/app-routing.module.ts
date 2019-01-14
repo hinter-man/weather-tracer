@@ -6,6 +6,7 @@ import { StationDetailViewComponent } from './station-detail-view/station-detail
 import { AdminComponent } from './admin/admin.component';
 import { AdminGuard } from './admin.guard';
 import { OAuthCallbackComponent } from './oauth-callback/oauth-callback.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'welcome'},
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'stations', component: StationListComponent },
   { path: 'stations/:id', component: StationDetailViewComponent},
   { path: 'admin', component: AdminComponent /* Admin Guard here */ },
+  { path: 'dashboard', component: DashboardComponent /* Admin Guard here */},
   { path: 'oauthcallback', component: OAuthCallbackComponent }
 ];
 

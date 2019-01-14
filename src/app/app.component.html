@@ -8,9 +8,10 @@
 <mat-sidenav-container>
   <mat-sidenav opened mode="side" role="navigation" class="mat-elevation-z8">
     <mat-nav-list>
-      <a mat-list-item routerLink="/welcome">Home</a>
-      <a mat-list-item routerLink="/stations">Stations</a>
-      <a mat-list-item routerLink="/admin">Admin</a>
+      <a mat-list-item routerLink="/welcome" (click)="setHeader('Welcome')">Welcome</a>
+      <a mat-list-item routerLink="/dashboard" (click)="setHeader('Dashboard')">Dashboard</a>
+      <a mat-list-item routerLink="/stations" (click)="setHeader('Stations')">Stations</a>
+      <a mat-list-item routerLink="/admin" (click)="setHeader('Admin')">Admin</a>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -21,7 +22,19 @@
   </mat-sidenav-content>
 </mat-sidenav-container>
 
-<footer>
-  <div>Icons made by <a href="https://www.flaticon.com/authors/kirill-kazachek" title="Kirill Kazachek">Kirill Kazachek</a> from <a href="https://www.flaticon.com/" 			    title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" 			    title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+<footer class="mat-elevation-z8">
+  <div>
+    Icons made by 
+    <a href="https://www.flaticon.com/authors/kirill-kazachek" title="Kirill Kazachek">
+      Kirill Kazachek
+    </a> 
+    from 
+    <a href="https://www.flaticon.com/" title="Flaticon">
+      www.flaticon.com
+    </a>
+    is licensed by 
+    <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">
+      CC 3.0 BY
+    </a>
   </div>
 </footer>

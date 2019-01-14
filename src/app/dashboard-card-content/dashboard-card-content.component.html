@@ -1,0 +1,23 @@
+<div *ngIf="measurements && measurements?.length > 0" class="card-content">
+  <h3 class="mat-h2">{{ typeOfMeasures[index].Name }}</h3>
+  <div class="card-chart">
+    <canvas baseChart
+            [data]="polarAreaChartData"
+            [labels]="polarAreaChartLabels"
+            [legend]="polarAreaLegend"
+            [chartType]="polarAreaChartType"></canvas>
+  </div> 
+  <button mat-icon-button class="btn-next" (click)="nextTypeOfMeasure()">
+    <mat-icon>
+        chevron_right
+    </mat-icon>
+  </button>
+  <button mat-icon-button class="btn-prev" (click)="prevTypeOfMeasure()">
+      <mat-icon>
+          chevron_left
+      </mat-icon>
+    </button>
+</div>
+<div *ngIf="!measurements || measurements.length == 0">
+  <h2 class="mat-h2">No measurements!</h2>
+</div>

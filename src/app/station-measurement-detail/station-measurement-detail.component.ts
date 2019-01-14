@@ -23,22 +23,6 @@ export class StationMeasurementDetailComponent implements OnInit {
   public customFromDate: Date;
   public customToDate: Date;
 
-
-  // chart
-    
-  public lineChartData:Array<any> = [
-    {data: [65, 59, 80, 81, 56, 55, 40], label: 'Value'},
-    {data: [28, 48, 40, 19, 86, 27, 90], label: 'Min'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Max'},
-    {data: [18, 48, 77, 9, 100, 27, 40], label: 'Avg'},
-  ];
-  public lineChartOptions:any = {
-    responsive: true
-  };
-  public lineChartLegend:boolean = true;
-  public lineChartType:string = 'line';
-
-
   constructor(private wetrService: WetrRestClientService,
               private route: ActivatedRoute) { }
 

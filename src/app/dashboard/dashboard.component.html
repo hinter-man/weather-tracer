@@ -1,0 +1,36 @@
+<h1 class="mat-h1">Dashboard</h1>
+<div *ngIf="!auth.isAuthenticated()">
+  <h2 class="mat-h2">You have to be logged in to save stations to your dashboard.</h2>
+  <button mat-raised-button (click)="auth.login()">Login</button>
+</div>
+
+<div *ngIf="auth.isAuthenticated()">
+  <div *ngIf="dashboardEmpty">
+    <h2 class="mat-h2">There are no stations in your dashboard. Click <a routerLink="../stations">here</a> to search for stations.</h2>
+  </div>
+  <mat-grid-list *ngIf="stations" cols="3" rowHeight="350px">
+    <mat-grid-tile *ngFor="let station of stations">
+      <mat-card class="dashboard-card" color="primary">
+        <mat-card-header>
+          <mat-card-title>
+            {{ station.Name }} ({{ station.PostCode.Code }})
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu>
+              <button mat-menu-item (click)="navigateToStationDetails(station)">
+                Show details
+              </button>
+              <button mat-menu-item (click)="removeStationFromDashboard(station)">
+                Remove from Dashboard
+              </button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+            <wetr-dashboard-card-content [station]="station"></wetr-dashboard-card-content>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

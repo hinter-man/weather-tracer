@@ -23,6 +23,7 @@ mat-toolbar {
 
 table {
     width: 50%;
+    margin-right: 10px;
 }
 
 .google-maps {

@@ -17,3 +17,15 @@ tr.mat-row:hover {
     background-color: rgba(0,0,0,.04);
 }
 
+.add-to-dashboard {
+    width: 70px;
+}
+
+.btn-add-to-dashboard:hover {
+    background-color: grey; 
+}
+
+.btn-add-to-dashboard:disabled {
+    background-color: transparent;    
+}
+

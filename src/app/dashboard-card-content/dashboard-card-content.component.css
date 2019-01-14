@@ -1,0 +1,19 @@
+.btn-next {
+    position: absolute;
+    right: 0;
+    top: 35%;
+}
+
+.btn-prev {
+    position: absolute;
+    left: 0;
+    top: 35%;
+}
+
+.card-content {
+    height: 100%;
+}
+
+.card-chart {
+    height: 100%;
+}

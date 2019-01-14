@@ -19,6 +19,13 @@ import { AdminComponent } from './admin/admin.component';
 import { OAuthCallbackComponent } from './oauth-callback/oauth-callback.component';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { MeasurementChartComponent } from './measurement-chart/measurement-chart.component';
+import { AgmCoreModule } from '@agm/core';
+import { environment } from 'src/environments/environment';
+import { MapsComponent } from './maps/maps.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { LayoutModule } from '@angular/cdk/layout';
+import { DashboardCardContentComponent } from './dashboard-card-content/dashboard-card-content.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +39,10 @@ import { MeasurementChartComponent } from './measurement-chart/measurement-chart
     LoginComponent,
     AdminComponent,
     OAuthCallbackComponent,
-    MeasurementChartComponent
+    MeasurementChartComponent,
+    MapsComponent,
+    DashboardComponent,
+    DashboardCardContentComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +51,16 @@ import { MeasurementChartComponent } from './measurement-chart/measurement-chart
     FormsModule,
     AngularMaterialModule,
     HttpClientModule,
-    ChartsModule
+    ChartsModule,
+    AgmCoreModule.forRoot({
+      apiKey: environment.googleApiKey
+    }),
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    LayoutModule
   ],
   providers: [],
   bootstrap: [AppComponent]
