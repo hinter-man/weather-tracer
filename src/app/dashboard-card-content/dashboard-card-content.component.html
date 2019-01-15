@@ -1,12 +1,12 @@
 <div *ngIf="measurements && measurements?.length > 0" class="card-content">
   <h3 class="mat-h2">{{ typeOfMeasures[index].Name }}</h3>
-  <div class="card-chart">
-    <canvas baseChart
-            [data]="polarAreaChartData"
-            [labels]="polarAreaChartLabels"
-            [legend]="polarAreaLegend"
-            [chartType]="polarAreaChartType"></canvas>
-  </div> 
+    <div class="card-chart">
+      <canvas baseChart
+              [data]="polarAreaChartData"
+              [labels]="polarAreaChartLabels"
+              [legend]="polarAreaLegend"
+              [chartType]="chartType"></canvas>
+    </div> 
   <button mat-icon-button class="btn-next" (click)="nextTypeOfMeasure()">
     <mat-icon>
         chevron_right

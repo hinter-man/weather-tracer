@@ -8,7 +8,7 @@
   <div *ngIf="dashboardEmpty">
     <h2 class="mat-h2">There are no stations in your dashboard. Click <a routerLink="../stations">here</a> to search for stations.</h2>
   </div>
-  <mat-grid-list *ngIf="stations" cols="3" rowHeight="350px">
+  <mat-grid-list *ngIf="stations" cols="3" rowHeight="400">
     <mat-grid-tile *ngFor="let station of stations">
       <mat-card class="dashboard-card" color="primary">
         <mat-card-header>
@@ -18,17 +18,39 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu>
+              <button mat-menu-item [matMenuTriggerFor]="dataviewoptionsmenu">
+                <mat-icon>show_chart</mat-icon>
+                <span>Show Data as</span>
+              </button>
               <button mat-menu-item (click)="navigateToStationDetails(station)">
-                Show details
+                <mat-icon>details</mat-icon>
+                <span>Show details</span>
               </button>
               <button mat-menu-item (click)="removeStationFromDashboard(station)">
-                Remove from Dashboard
+                <mat-icon>remove</mat-icon>
+                <span>Remove from Dashboard</span>
               </button>
             </mat-menu>
+            <mat-menu #dataviewoptionsmenu="matMenu">
+                <button mat-menu-item (click)="changeDataViewInDashboardCard('polarArea')">
+                  <mat-icon>grid_on</mat-icon>
+                  <span>Grid</span>
+                </button>
+                <button mat-menu-item (click)="changeDataViewInDashboardCard('polarArea')">
+                  <mat-icon>donut_small</mat-icon>
+                  <span>Polar Area Chart</span>
+                </button>
+                <button mat-menu-item (click)="changeDataViewInDashboardCard('pie')">
+                  <mat-icon>pie_chart</mat-icon>
+                  <span>Pie Chart</span>
+                </button>
+              </mat-menu>
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-            <wetr-dashboard-card-content [station]="station"></wetr-dashboard-card-content>
+            <wetr-dashboard-card-content [station]="station"
+              [events]="eventsSubject.asObservable()">
+            </wetr-dashboard-card-content>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>

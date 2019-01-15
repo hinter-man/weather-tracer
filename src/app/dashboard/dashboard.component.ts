@@ -16,6 +16,8 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+  private eventsSubject: Subject<string> = new Subject<string>();
+
   public stations: Station[] = [];
   public dashboardEmpty: boolean;
 
@@ -45,6 +47,10 @@ export class DashboardComponent implements OnInit {
 
   public navigateToStationDetails(station: Station) : void {
     this.router.navigateByUrl(`/stations/${station.Id}`);
+  }
+
+  public changeDataViewInDashboardCard(dataViewOption: string) {
+    this.eventsSubject.next(dataViewOption);
   }
   
 }

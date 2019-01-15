@@ -5,6 +5,7 @@ import { Station } from '../shared/station';
 import * as moment from 'moment';
 import { forEach } from '@angular/router/src/utils/collection';
 import { TypeOfMeasurement } from '../shared/typeofmeasurement';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'wetr-dashboard-card-content',
@@ -14,6 +15,8 @@ import { TypeOfMeasurement } from '../shared/typeofmeasurement';
 export class DashboardCardContentComponent implements OnInit {
 
   @Input() station: Station;
+  @Input() events: Observable<string>;
+  private eventsSubscription: any
   measurements: Array<Measurement> = [];
   typeOfMeasures: Array<TypeOfMeasurement> = [];
   index: number;
@@ -22,7 +25,7 @@ export class DashboardCardContentComponent implements OnInit {
   public polarAreaChartLabels:string[] = ['Avg', 'Min', 'Max'];
   public polarAreaChartData:number[] = [];
   public polarAreaLegend:boolean = true;
-  public polarAreaChartType:string = 'polarArea';
+  public chartType:string = 'polarArea';
    
 
   constructor(private wetrService: WetrRestClientService) { }
@@ -37,6 +40,11 @@ export class DashboardCardContentComponent implements OnInit {
           this.typeOfMeasures.push(elem.TypeOfMeasure);
         });
         this.updateChart();
+      });
+
+      // change chart type - updated by parent component
+      this.eventsSubscription = this.events.subscribe(res => {
+        this.chartType = res
       });
   }
 
