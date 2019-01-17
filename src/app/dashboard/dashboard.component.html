@@ -8,6 +8,9 @@
   <div *ngIf="dashboardEmpty">
     <h2 class="mat-h2">There are no stations in your dashboard. Click <a routerLink="../stations">here</a> to search for stations.</h2>
   </div>
+  <div *ngIf="(!stations || stations.length === 0) && !dashboardEmpty">
+    <mat-spinner></mat-spinner>
+  </div>
   <mat-grid-list *ngIf="stations" cols="3" rowHeight="400">
     <mat-grid-tile *ngFor="let station of stations">
       <mat-card class="dashboard-card" color="primary">

@@ -26,3 +26,7 @@
 div.mat-card-header-text {
   margin: 0;
 }
+
+mat-spinner {
+  margin: 0 auto;
+}
