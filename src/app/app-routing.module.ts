@@ -13,8 +13,8 @@ const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'stations', component: StationListComponent },
   { path: 'stations/:id', component: StationDetailViewComponent},
-  { path: 'admin', component: AdminComponent /* Admin Guard here */ },
-  { path: 'dashboard', component: DashboardComponent /* Admin Guard here */},
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
+  { path: 'dashboard', component: DashboardComponent},
   { path: 'oauthcallback', component: OAuthCallbackComponent }
 ];
 

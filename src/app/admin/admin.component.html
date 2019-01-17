@@ -1,29 +1,59 @@
 <mat-toolbar color="primary" class="mat-elevation-z8">
-  <span>My Stations</span>
-  <button mat-icon-button color="accent" (click)="addStation()">
-    <mat-icon>add</mat-icon>
-  </button>
+  <span>New Station</span>
 </mat-toolbar>
-<div class="accordion">
-  <mat-accordion>
-    <span *ngIf="!myStations">You have no stations.</span>
-    <!-- station panel  -->
-    <mat-expansion-panel *ngFor="let station of myStations" [expanded]="true" (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header color="accent">
-        <mat-panel-title>
-          Station Data
-        </mat-panel-title>
-        <mat-panel-description *ngIf="!panelOpenState">
-          <span>
-            <button mat-icon-button color="accent" (click)="deleteStation(station)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </span>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <!-- expanded -->
-      <div class="expansion-panel-body">
-      </div>
-    </mat-expansion-panel>
-  </mat-accordion>
-</div>
+<form #stationForm="ngForm" (ngSubmit)="submitStationForm()">
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Name" name="name" [(ngModel)]="station.Name" required type="text" maxlength="50">
+          <mat-error *ngIf="errors.name">{{errors.name}}</mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Type" name="type" [(ngModel)]="station.Type" type="text" maxlength="100">
+          <mat-error *ngIf="errors.type">{{errors.type}}</mat-error>
+        </mat-form-field>
+      </td>
+    <tr>
+      <td colspan="2">
+        <mat-form-field>
+          <input matInput placeholder="Address" name="address" [(ngModel)]="station.Address" type="text">
+          <mat-error *ngIf="errors.address">{{errors.address}}</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Post Code" name="postcode" required [(ngModel)]="station.PostCode.Code" type="number">
+          <mat-error *ngIf="errors.postcode">{{errors.postcode}}</mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput disabled placeholder="Community">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput disabled placeholder="District">
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput disabled placeholder="Province">
+        </mat-form-field>
+      </td>
+    </tr>
+    <button mat-raised-button type="submit" [disabled]="stationForm.invalid" color="primary">
+        Create
+    </button>
+  </table>
+  <div class="google-maps">
+    <wetr-maps [station]="station"></wetr-maps>
+  </div>
+</form>

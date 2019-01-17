@@ -14,6 +14,7 @@ export class AdminGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     if (!this.auth.isAuthenticated()) {
+      localStorage.setItem('loginRedirectUri', state.url);
       this.auth.login();
       false;
     } else {

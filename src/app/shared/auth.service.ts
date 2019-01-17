@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js'
 import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
+import { routerNgProbeToken } from '@angular/router/src/router_module';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,9 @@ export class AuthService {
   }
 
   public login(): void {
-    localStorage.setItem('loginRedirectUri', window.location.pathname);
+    if (!localStorage.getItem('loginRedirectUri')) {
+      localStorage.setItem('loginRedirectUri', window.location.pathname);
+    }
     this.auth0.authorize();
   }
 
@@ -79,17 +82,18 @@ export class AuthService {
     this._accessToken = '';
     this._idToken = '';
     this._expiresAt = 0;
+
     // Remove isLoggedIn flag from localStorage
     localStorage.removeItem('isLoggedIn');
-    this.redirectToPrevUrl();
+    this.router.navigateByUrl('welcome');
     localStorage.removeItem('loginRedirectUri');
   }
 
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    
-    return new Date().getTime() < this._expiresAt;
+    return true;
+    //return new Date().getTime() < this._expiresAt;
   }
 
 }

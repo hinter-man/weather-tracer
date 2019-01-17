@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Station } from './station';
 import { environment } from 'src/environments/environment.prod';
 import { map, catchError, retry, tap } from 'rxjs/operators';
@@ -63,6 +63,14 @@ export class WetrRestClientService {
     return this.http.get<Measurement[]>(url)
       .pipe(
         catchError(this.handleError('getMeasurementsByStation', []))
+      );
+  }
+
+  insertStation(station: Station): Observable<HttpResponse<Station>> {
+    console.log('insertStation');
+    return this.http.post<Station>(this.createApiUrl('stations'), station, { observe: 'response' })
+      .pipe(
+        tap(res => console.log(res.headers.get('Location')))
       );
   }
 
