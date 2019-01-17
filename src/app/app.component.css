@@ -41,3 +41,10 @@ footer {
     background-color: #3f51b5;
     color: white;
 }
+
+footer div {
+    height: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}

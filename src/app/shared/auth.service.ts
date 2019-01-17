@@ -89,8 +89,7 @@ export class AuthService {
     // Check whether the current time is past the
     // access token's expiry time
     
-    //return new Date().getTime() < this._expiresAt;
-    return true;
+    return new Date().getTime() < this._expiresAt;
   }
 
 }

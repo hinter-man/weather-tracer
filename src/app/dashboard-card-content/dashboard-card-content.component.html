@@ -1,23 +1,76 @@
-<div *ngIf="measurements && measurements?.length > 0" class="card-content">
-  <h3 class="mat-h2">{{ typeOfMeasures[index].Name }}</h3>
-    <div class="card-chart">
-      <canvas baseChart
-              [data]="polarAreaChartData"
-              [labels]="polarAreaChartLabels"
-              [legend]="polarAreaLegend"
-              [chartType]="chartType"></canvas>
-    </div> 
-  <button mat-icon-button class="btn-next" (click)="nextTypeOfMeasure()">
-    <mat-icon>
-        chevron_right
-    </mat-icon>
-  </button>
-  <button mat-icon-button class="btn-prev" (click)="prevTypeOfMeasure()">
-      <mat-icon>
+<mat-card class="dashboard-card" color="primary">
+  <mat-card-header>
+    <mat-card-title>
+      {{ station.Name }} ({{ station.PostCode.Code }})
+      <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu>
+        <button mat-menu-item [matMenuTriggerFor]="dataviewoptionsmenu">
+          <mat-icon>show_chart</mat-icon>
+          <span>Show Data as</span>
+        </button>
+        <button mat-menu-item (click)="navigateToStationDetails(station)">
+          <mat-icon>details</mat-icon>
+          <span>Show details</span>
+        </button>
+        <button mat-menu-item (click)="removeStationFromDashboardEvent.emit(station)">
+          <mat-icon>remove</mat-icon>
+          <span>Remove from Dashboard</span>
+        </button>
+      </mat-menu>
+      <mat-menu #dataviewoptionsmenu="matMenu">
+        <button mat-menu-item (click)="changeDisplayType('')">
+          <mat-icon>grid_on</mat-icon>
+          <span>Grid</span>
+        </button>
+        <button mat-menu-item (click)="changeDisplayType('bar')">
+            <mat-icon>bar_chart</mat-icon>
+            <span>Bar Chart</span>
+        </button>
+        <button mat-menu-item (click)="changeDisplayType('polarArea')">
+          <mat-icon>donut_small</mat-icon>
+          <span>Polar Area Chart</span>
+        </button>
+        <button mat-menu-item (click)="changeDisplayType('pie')">
+          <mat-icon>pie_chart</mat-icon>
+          <span>Pie Chart</span>
+        </button>
+      </mat-menu>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="dashboard-card-content">
+    <div *ngIf="measurements && measurements?.length > 0" class="card-content">
+      <h3 class="mat-h2">{{ typeOfMeasures[index].Name }} ({{ typeOfMeasures[index].Unit }})</h3>
+      <div *ngIf="showChart" class="card-chart">
+        <canvas baseChart [data]="chartData" [labels]="chartLabels" [legend]="chartType == 'bar' ? false : true" [chartType]="chartType"></canvas>
+      </div>
+      <div *ngIf="!showChart">
+        <mat-chip-list class="mat-chip-list-stacked">
+          <mat-chip color="accent" selected>
+            Max: {{ measurements[index].Max }} {{ typeOfMeasures[index].UnitAbbreviation }}
+          </mat-chip>
+          <mat-chip>
+            Avg: {{ measurements[index].Avg }} {{ typeOfMeasures[index].UnitAbbreviation }}
+          </mat-chip>
+          <mat-chip color="primary" selected>
+            Min: {{ measurements[index].Min }} {{ typeOfMeasures[index].UnitAbbreviation }}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+      <button mat-icon-button class="btn-next" (click)="nextTypeOfMeasure()">
+        <mat-icon>
+          chevron_right
+        </mat-icon>
+      </button>
+      <button mat-icon-button class="btn-prev" (click)="prevTypeOfMeasure()">
+        <mat-icon>
           chevron_left
-      </mat-icon>
-    </button>
-</div>
-<div *ngIf="!measurements || measurements.length == 0">
-  <h2 class="mat-h2">No measurements!</h2>
-</div>
+        </mat-icon>
+      </button>
+    </div>
+    <div *ngIf="!measurements || measurements.length == 0">
+      <h2 class="mat-h2">No measurements!</h2>
+    </div>
+  </mat-card-content>
+</mat-card>
