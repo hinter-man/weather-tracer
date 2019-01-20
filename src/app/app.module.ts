@@ -11,7 +11,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SearchLocationComponent } from './search-location/search-location.component';
 import { StationDetailViewComponent } from './station-detail-view/station-detail-view.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StationMeasurementComponent } from './station-measurement/station-measurement.component';
 import { StationMeasurementDetailComponent } from './station-measurement-detail/station-measurement-detail.component';
 import { LoginComponent } from './login/login.component';
@@ -60,7 +60,8 @@ import { DashboardCardContentComponent } from './dashboard-card-content/dashboar
     MatMenuModule,
     MatIconModule,
     MatButtonModule,
-    LayoutModule
+    LayoutModule,   
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

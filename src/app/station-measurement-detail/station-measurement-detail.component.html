@@ -62,7 +62,7 @@
               {{ typeOfMeasures[typeOfMeasure] }}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div class="measurement-panel-body">
+          <div class="measurement-panel-body" *ngIf="measurementMap[typeOfMeasure]">
             <table mat-table [dataSource]="measurementMap[typeOfMeasure]" sticky>
               <ng-container matColumnDef="Timestamp">
                 <th mat-header-cell *matHeaderCellDef> Timestamp </th>
@@ -104,6 +104,9 @@
                 [measurements]="measurementMap[typeOfMeasure]">
               </wetr-measurement-chart>
             </div>
+          </div>
+          <div *ngIf="!measurementMap[typeOfMeasure]">
+            <h1 class="mat-h1">No measurements!</h1>
           </div>
         </mat-expansion-panel>
       </mat-accordion>

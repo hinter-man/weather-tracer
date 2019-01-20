@@ -52,24 +52,68 @@
     <tr>
       <td>
         <mat-form-field>
-          <input matInput placeholder="Latitude" name="latitude" required 
-          [(ngModel)]="station.Latitude" type="number" min="-90" max="90">
+          <input matInput placeholder="Latitude" name="latitude" required [(ngModel)]="station.Latitude" type="number" min="-90" max="90">
           <mat-error *ngIf="errors.latitude">{{errors.latitude}}</mat-error>
         </mat-form-field>
       </td>
       <td>
         <mat-form-field>
-          <input matInput placeholder="Longitude" name="longitude" required 
-          [(ngModel)]="station.Longitude" type="number" min="-180" max="180">
+          <input matInput placeholder="Longitude" name="longitude" required [(ngModel)]="station.Longitude" type="number" min="-180" max="180">
           <mat-error *ngIf="errors.longitude">{{errors.longitude}}</mat-error>
         </mat-form-field>
       </td>
     </tr>
     <button mat-raised-button type="submit" [disabled]="stationForm.invalid" color="primary">
-        Create
+      Create
     </button>
   </table>
   <div class="google-maps">
     <wetr-maps [station]="station"></wetr-maps>
   </div>
+</form>
+
+
+
+
+<mat-toolbar color="primary" class="measurement-toolbar mat-elevation-z8">
+  <span>New Measurement</span>
+</mat-toolbar>
+<form #measurementForm="ngForm" class="measurement-form" (ngSubmit)="submitMeasurementForm()">
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field>
+          <mat-select placeholder="Station Id" name="stationid" required [(ngModel)]="measurement.StationId">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let station of stations" [value]="station.Id">
+              {{station.Name}} ({{station.PostCode.Code}})
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="errors.stationid">{{errors.stationid}}</mat-error>
+          <mat-hint>{{station?.Name}}</mat-hint>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <mat-select placeholder="Type of measure" name="typeofmeasure" required [(ngModel)]="measurement.TypeOfMeasure">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let tom of typeOfMeasures" [value]="tom">
+              {{tom.Name}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="errors.typeofmeasure">{{errors.typeofmeasure}}</mat-error>
+          <mat-hint>{{tom?.UnitAbbreviation}}</mat-hint>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Value" name="value" required [(ngModel)]="measurement.Value" type="number">
+          <mat-error *ngIf="errors.value">{{errors.value}}</mat-error>
+        </mat-form-field>
+      </td>
+    </tr>
+    <button mat-raised-button type="submit" [disabled]="measurementForm.invalid" color="primary">
+      Insert
+    </button>
+  </table>
 </form>

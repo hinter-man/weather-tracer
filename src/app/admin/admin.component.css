@@ -43,3 +43,11 @@ table {
 mat-form-field {
     width: 100%;
 }
+
+.measurement-toolbar {
+    margin-top: 30px;
+}
+
+.measurement-form {
+    height: fit-content;
+}

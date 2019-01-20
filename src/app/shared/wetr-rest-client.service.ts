@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment.prod';
 import { map, catchError, retry, tap } from 'rxjs/operators';
 import { PostCode } from './postcode';
 import { Measurement } from './measurement';
+import { TypeOfMeasurement } from './typeofmeasurement';
 
 const API_BASE_URL: string = `${environment.server}`;
 
@@ -13,6 +14,7 @@ const API_BASE_URL: string = `${environment.server}`;
   providedIn: 'root'
 })
 export class WetrRestClientService {
+  
   constructor(private http: HttpClient) { }
 
   getStations() : Observable<Station[]> {
@@ -72,8 +74,25 @@ export class WetrRestClientService {
   }
 
   updateStation(station: Station) : Observable<HttpResponse<Station>> {
-    return this.http.put<HttpResponse<Station>>(
-      this.createApiUrl(`stations/${station.Id}`), station);
+    return this.http.put<Station>(
+      this.createApiUrl(`stations/${station.Id}`), station, { observe: 'response'});
+  }
+
+  getTypeOfMeasures() : Observable<TypeOfMeasurement[]> {
+    return this.http.get<TypeOfMeasurement[]>(this.createApiUrl('typeofmeasures'))
+      .pipe(
+        catchError(this.handleError('getTypeOfMeasures', [])),
+        tap(res => console.log(res))
+      );
+  }
+
+  insertMeasurement(measurement: Measurement) : Observable<HttpResponse<Measurement>> {
+    // remove all 'undefinded' properties with json.parse and json.stringify
+    var measurementArray: Measurement[] = [ JSON.parse(JSON.stringify(measurement)) ];
+    // rest api needs array, not a single measurement
+    return this.http.post(
+      this.createApiUrl(`stations/${measurement.StationId}/measurements`),
+        measurementArray, { observe: 'response'});   
   }
 
   
