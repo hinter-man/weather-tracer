@@ -49,6 +49,7 @@ export class AuthService {
   public redirectToPrevUrl(): void {
     // redirect to url before login
     this.router.navigate([localStorage.getItem('loginRedirectUri')]);
+    localStorage.removeItem('loginRedirectUri');
   }
 
   private localLogin(authResult): void {

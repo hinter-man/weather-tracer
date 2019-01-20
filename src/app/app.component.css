@@ -48,3 +48,7 @@ footer div {
     display: flex;
     align-items: center;
 }
+
+.header-title {
+    cursor: pointer;
+}
