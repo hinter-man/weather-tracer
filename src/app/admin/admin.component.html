@@ -12,7 +12,7 @@
       </td>
       <td>
         <mat-form-field>
-          <input matInput placeholder="Type" name="type" [(ngModel)]="station.Type" type="text" maxlength="100">
+          <input matInput placeholder="Type" name="type" [(ngModel)]="station.Type" type="text" required maxlength="100">
           <mat-error *ngIf="errors.type">{{errors.type}}</mat-error>
         </mat-form-field>
       </td>
@@ -46,6 +46,22 @@
       <td>
         <mat-form-field>
           <input matInput disabled placeholder="Province">
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Latitude" name="latitude" required 
+          [(ngModel)]="station.Latitude" type="number" min="-90" max="90">
+          <mat-error *ngIf="errors.latitude">{{errors.latitude}}</mat-error>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Longitude" name="longitude" required 
+          [(ngModel)]="station.Longitude" type="number" min="-180" max="180">
+          <mat-error *ngIf="errors.longitude">{{errors.longitude}}</mat-error>
         </mat-form-field>
       </td>
     </tr>

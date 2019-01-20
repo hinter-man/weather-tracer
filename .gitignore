@@ -39,3 +39,4 @@ testem.log
 Thumbs.db
 
 environment.ts
+auth.config.ts

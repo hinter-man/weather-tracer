@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as auth0 from 'auth0-js'
 import { Router, ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
+import { authConfig } from '../auth.config';
 
 @Injectable({
   providedIn: 'root'
@@ -11,13 +12,7 @@ export class AuthService {
   private _accessToken: string;
   private _expiresAt: number;
 
-  auth0 = new auth0.WebAuth({
-    clientID: 'RbjCq7NhS8GgJZLLnirXAv6AV7tj4KPJ',
-    domain: 'hima.eu.auth0.com',
-    responseType: 'token id_token',
-    redirectUri: 'http://localhost:4200/oauthcallback',
-    scope: 'openid'
-  });
+  auth0 = new auth0.WebAuth(authConfig);
 
   constructor(public router: Router, public route: ActivatedRoute) {
     this._idToken = '';
@@ -92,8 +87,7 @@ export class AuthService {
   public isAuthenticated(): boolean {
     // Check whether the current time is past the
     // access token's expiry time
-    return true;
-    //return new Date().getTime() < this._expiresAt;
+    return new Date().getTime() < this._expiresAt;
   }
 
 }

@@ -4,7 +4,9 @@ import { NgForm } from '@angular/forms';
 import { PostCode } from '../shared/postcode';
 import { StationErrorMessages } from './station-form-error-messages';
 import { WetrRestClientService } from '../shared/wetr-rest-client.service';
-import { tap } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
+import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'wetr-admin',
@@ -17,7 +19,9 @@ export class AdminComponent implements OnInit {
   public station: Station;
   public errors: { [key: string]: string } = {};
 
-  constructor(private wetrService: WetrRestClientService) { }
+  constructor(private wetrService: WetrRestClientService,
+              private router: Router,
+              public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.initializeStation();
@@ -30,8 +34,31 @@ export class AdminComponent implements OnInit {
   }
 
   public submitStationForm() {
-    console.log(this.station);
-    this.wetrService.insertStation(this.station).subscribe(res => console.log(res));
+    this.wetrService.insertStation(this.station).subscribe(
+      res =>  {
+        this.processSubmitResult(res);        
+      });
+  }
+
+  private processSubmitResult(res: HttpResponse<Station>) {
+    if (res.ok) {
+      // get new station id from location header
+      let locationHeader = res.headers.get('location');
+      let newStationId = locationHeader.substr(locationHeader.lastIndexOf('/') + 1);
+      // open snackbar
+      let snackBarRef = this.snackBar.open('Station created', 'Show details', {
+        duration: 5000
+      });
+      // on click snackbar button
+      snackBarRef.onAction().subscribe(() => {
+        this.router.navigateByUrl(`stations/${newStationId}`);
+      });
+      // reset form
+      this.stationForm.reset();
+    }
+    else {
+      this.snackBar.open('Station not created!!');
+    }
   }
 
   private updateErrorMessages() : void {
