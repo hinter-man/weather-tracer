@@ -67,7 +67,13 @@ export class WetrRestClientService {
   }
 
   insertStation(station: Station): Observable<HttpResponse<Station>> {
-    return this.http.post<Station>(this.createApiUrl('stations'), station, { observe: 'response' });
+    return this.http.post<Station>(
+      this.createApiUrl('stations'), station, { observe: 'response' });
+  }
+
+  updateStation(station: Station) : Observable<HttpResponse<Station>> {
+    return this.http.put<HttpResponse<Station>>(
+      this.createApiUrl(`stations/${station.Id}`), station);
   }
 
   

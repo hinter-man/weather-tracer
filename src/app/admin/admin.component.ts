@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Station } from '../shared/station';
 import { NgForm } from '@angular/forms';
 import { PostCode } from '../shared/postcode';
-import { StationErrorMessages } from './station-form-error-messages';
+import { StationErrorMessages } from '../shared/station-form-error-messages';
 import { WetrRestClientService } from '../shared/wetr-rest-client.service';
 import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
